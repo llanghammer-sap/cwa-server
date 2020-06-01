@@ -41,3 +41,19 @@ attenuation:
   gt_15_le_27_dbm: 6
   gt_10_le_15_dbm: 7
   lt_10_dbm: 8
+
+transmission_risk:
+  key_0: 6
+    key_1: 7 # wrong syntax, indent too high
+  key_2: 8
+  key_3: 7
+  key_4: 5
+  key_5: 3
+  key_6: 2
+  key_7: 1
+  key_8: 1
+  key_9: 1
+  key_10: 1
+  key_11: 1
+  key_12: 1
+  key_13: 1

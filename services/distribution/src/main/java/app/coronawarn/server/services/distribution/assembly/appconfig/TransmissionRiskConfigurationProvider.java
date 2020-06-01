@@ -46,8 +46,7 @@ public class TransmissionRiskConfigurationProvider {
    * @throws UnableToLoadFileException when the file access/transformation did not succeed
    */
   public static TransmissionRiskConfiguration readFile(String path) throws UnableToLoadFileException {
-    //return YamlLoader.loadYamlIntoProtobufBuilder(path, TransmissionRiskConfiguration.Builder.class).build();
-    return null;
+    return YamlLoader.loadYamlIntoProtobufBuilder(path, TransmissionRiskConfiguration.Builder.class).build();
   }
 
 }

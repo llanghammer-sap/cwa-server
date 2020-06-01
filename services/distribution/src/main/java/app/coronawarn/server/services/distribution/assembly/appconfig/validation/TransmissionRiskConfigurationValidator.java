@@ -21,6 +21,7 @@ package app.coronawarn.server.services.distribution.assembly.appconfig.validatio
 
 import app.coronawarn.server.common.protocols.internal.RiskLevel;
 import app.coronawarn.server.common.protocols.internal.TransmissionRiskConfiguration;
+import app.coronawarn.server.common.protocols.internal.TransmissionRiskConfigurationValues;
 import app.coronawarn.server.services.distribution.assembly.appconfig.validation.TransmissionRiskConfigurationValidationError.ErrorType;
 
 public class TransmissionRiskConfigurationValidator extends ConfigurationValidator {
@@ -36,26 +37,26 @@ public class TransmissionRiskConfigurationValidator extends ConfigurationValidat
   public ValidationResult validate() {
     errors = new ValidationResult();
 
-    validateValues();
+    validateValues(this.transmissionRiskConfiguration.getTransmissionRisk());
 
     return errors;
   }
 
-  private void validateValues() {
-    validateTransmissionRiskLevel(transmissionRiskConfiguration.getKey0());
-    validateTransmissionRiskLevel(transmissionRiskConfiguration.getKey1());
-    validateTransmissionRiskLevel(transmissionRiskConfiguration.getKey2());
-    validateTransmissionRiskLevel(transmissionRiskConfiguration.getKey3());
-    validateTransmissionRiskLevel(transmissionRiskConfiguration.getKey4());
-    validateTransmissionRiskLevel(transmissionRiskConfiguration.getKey5());
-    validateTransmissionRiskLevel(transmissionRiskConfiguration.getKey6());
-    validateTransmissionRiskLevel(transmissionRiskConfiguration.getKey7());
-    validateTransmissionRiskLevel(transmissionRiskConfiguration.getKey8());
-    validateTransmissionRiskLevel(transmissionRiskConfiguration.getKey9());
-    validateTransmissionRiskLevel(transmissionRiskConfiguration.getKey10());
-    validateTransmissionRiskLevel(transmissionRiskConfiguration.getKey11());
-    validateTransmissionRiskLevel(transmissionRiskConfiguration.getKey12());
-    validateTransmissionRiskLevel(transmissionRiskConfiguration.getKey13());
+  private void validateValues(TransmissionRiskConfigurationValues transmissionRiskConfigurationValues) {
+    validateTransmissionRiskLevel(transmissionRiskConfigurationValues.getKey0());
+    validateTransmissionRiskLevel(transmissionRiskConfigurationValues.getKey1());
+    validateTransmissionRiskLevel(transmissionRiskConfigurationValues.getKey2());
+    validateTransmissionRiskLevel(transmissionRiskConfigurationValues.getKey3());
+    validateTransmissionRiskLevel(transmissionRiskConfigurationValues.getKey4());
+    validateTransmissionRiskLevel(transmissionRiskConfigurationValues.getKey5());
+    validateTransmissionRiskLevel(transmissionRiskConfigurationValues.getKey6());
+    validateTransmissionRiskLevel(transmissionRiskConfigurationValues.getKey7());
+    validateTransmissionRiskLevel(transmissionRiskConfigurationValues.getKey8());
+    validateTransmissionRiskLevel(transmissionRiskConfigurationValues.getKey9());
+    validateTransmissionRiskLevel(transmissionRiskConfigurationValues.getKey10());
+    validateTransmissionRiskLevel(transmissionRiskConfigurationValues.getKey11());
+    validateTransmissionRiskLevel(transmissionRiskConfigurationValues.getKey12());
+    validateTransmissionRiskLevel(transmissionRiskConfigurationValues.getKey13());
   }
 
   private void validateTransmissionRiskLevel(RiskLevel transmissionRiskLevel) {
