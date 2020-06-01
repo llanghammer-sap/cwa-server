@@ -1,0 +1,22 @@
+syntax = "proto3";
+package app.coronawarn.server.common.protocols.internal;
+option java_package = "app.coronawarn.server.common.protocols.internal";
+option java_multiple_files = true;
+import "app/coronawarn/server/common/protocols/internal/risk_level.proto";
+
+message TransmissionRiskConfiguration {
+  RiskLevel key_0 = 1;
+  RiskLevel key_1 = 2;
+  RiskLevel key_2 = 3;
+  RiskLevel key_3 = 4;
+  RiskLevel key_4 = 5;
+  RiskLevel key_5 = 6;
+  RiskLevel key_6 = 7;
+  RiskLevel key_7 = 8;
+  RiskLevel key_8 = 9;
+  RiskLevel key_9 = 10;
+  RiskLevel key_10 = 11;
+  RiskLevel key_11 = 12;
+  RiskLevel key_12 = 13;
+  RiskLevel key_13 = 14;
+}
