@@ -29,6 +29,14 @@ public class TransmissionRiskConfigurationValidationError implements ValidationE
 
   private final ErrorType reason;
 
+  /**
+   * Creates a {@link RiskScoreClassificationValidationError} that stores the specified validation error source,
+   * erroneous value and reason for the error to occur.
+   *
+   * @param errorSource A label that describes the property associated with this validation error.
+   * @param value       The value that caused the validation error.
+   * @param reason      A validation error specifier.
+   */
   public TransmissionRiskConfigurationValidationError(String errorSource, Object value,
       ErrorType reason) {
     this.errorSource = errorSource;
