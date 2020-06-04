@@ -31,6 +31,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.util.ResourceUtils;
 
+
 @Configuration
 public class VerificationServerClientConfiguration {
 
@@ -39,10 +40,10 @@ public class VerificationServerClientConfiguration {
 
   @Bean
   public Feign.Builder feignBuilder() {
-    return Feign.builder().client(new Client.Default(getSSLSocketFactory(), null));
+    return Feign.builder().client(new Client.Default(getSslSocketFactory(), null));
   }
 
-  SSLSocketFactory getSSLSocketFactory() {
+  SSLSocketFactory getSslSocketFactory() {
     String password = environment.getProperty("client.ssl.key-store-password");
     SSLContext sslContext = null;
     try {
