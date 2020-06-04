@@ -88,7 +88,12 @@ public class ArchiveOnDisk extends FileOnDisk implements Archive<WritableOnDisk>
           .sorted()
           .forEach(uncheckedConsumer(file -> {
             String pathInZip = file.getName();
-            zipOutputStream.putNextEntry(new ZipEntry(pathInZip));
+            var entry = new ZipEntry(pathInZip);
+            // We don't have access to the timestamps at this point anymore, the zip library does require setting this
+            // field though, since zip files with identical contents won't be byte-identical otherwise.
+            entry.setTime(0L);
+            entry.setMethod(ZipEntry.DEFLATED);
+            zipOutputStream.putNextEntry(entry);
             byte[] bytes = file.getBytes();
             zipOutputStream.write(bytes, 0, bytes.length);
             zipOutputStream.closeEntry();
