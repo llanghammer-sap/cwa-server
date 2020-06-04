@@ -38,3 +38,11 @@ client:
     trust-store-password: ${SSL_TRUSTSTORE_PASSWORD}
     trust-store-provider: SUN
     trust-store-type: JKS
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
