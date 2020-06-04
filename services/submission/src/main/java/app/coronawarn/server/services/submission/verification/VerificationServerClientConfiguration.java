@@ -21,41 +21,44 @@
 package app.coronawarn.server.services.submission.verification;
 
 import feign.Client;
-import feign.Feign;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import org.apache.http.ssl.SSLContextBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
+import feign.httpclient.ApacheHttpClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-import org.springframework.util.ResourceUtils;
 
 
 @Configuration
 public class VerificationServerClientConfiguration {
 
+  @Bean
+  public Client feignClient() {
+    return new ApacheHttpClient();
+  }
+
+  /*
+
   @Autowired
   Environment environment;
 
-  @Bean
-  public Feign.Builder feignBuilder() {
-    return Feign.builder().client(new Client.Default(getSslSocketFactory(), null));
-  }
-
-  SSLSocketFactory getSslSocketFactory() {
-    String password = environment.getProperty("client.ssl.key-store-password");
-    SSLContext sslContext = null;
+  private SSLSocketFactory getSSLSocketFactory() {
     try {
-      sslContext = SSLContextBuilder
+      TrustStrategy acceptingTrustStrategy = new TrustStrategy() {
+        @Override
+        public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+          //Do your validations
+          return true;
+        }
+      };
+      String allPassword = environment.getProperty("client.ssl.");
+      SSLContext sslContext = SSLContextBuilder
           .create()
-          .setKeyStoreType(environment.getProperty("client.ssl.key-store-type"))
-          .loadKeyMaterial(ResourceUtils.getFile(environment.getProperty("key-store")), password.toCharArray(),
-              password.toCharArray())
+          // .loadKeyMaterial(ResourceUtils.getFile("classpath:keystore.p12"), allPassword.toCharArray(), allPassword.toCharArray())
+          .loadKeyMaterial(ResourceUtils.getFile("classpath:keystore.jks"), allPassword.toCharArray(), allPassword.toCharArray())
+          .loadTrustMaterial(ResourceUtils.getFile("classpath:truststore.jks"), allPassword.toCharArray())
           .build();
-    } catch (Exception e) {
-      System.out.println(e);
+      return sslContext.getSocketFactory();
+    } catch (Exception exception) {
+      throw new RuntimeException(exception);
     }
-    return sslContext.getSocketFactory();
   }
+   */
 }
