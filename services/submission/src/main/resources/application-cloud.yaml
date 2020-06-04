@@ -36,3 +36,5 @@ client:
     key-store-type: JKS
     trust-store: ${SSL_CLIENT_TRUSTSTORE_PATH}
     trust-store-password: ${SSL_TRUSTSTORE_PASSWORD}
+    trust-store-provider: SUN
+    trust-store-type: JKS
