@@ -33,32 +33,4 @@ public class VerificationServerClientConfiguration {
   public Client feignClient() {
     return new ApacheHttpClient();
   }
-
-  /*
-
-  @Autowired
-  Environment environment;
-
-  private SSLSocketFactory getSSLSocketFactory() {
-    try {
-      TrustStrategy acceptingTrustStrategy = new TrustStrategy() {
-        @Override
-        public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-          //Do your validations
-          return true;
-        }
-      };
-      String allPassword = environment.getProperty("client.ssl.");
-      SSLContext sslContext = SSLContextBuilder
-          .create()
-          // .loadKeyMaterial(ResourceUtils.getFile("classpath:keystore.p12"), allPassword.toCharArray(), allPassword.toCharArray())
-          .loadKeyMaterial(ResourceUtils.getFile("classpath:keystore.jks"), allPassword.toCharArray(), allPassword.toCharArray())
-          .loadTrustMaterial(ResourceUtils.getFile("classpath:truststore.jks"), allPassword.toCharArray())
-          .build();
-      return sslContext.getSocketFactory();
-    } catch (Exception exception) {
-      throw new RuntimeException(exception);
-    }
-  }
-   */
 }
