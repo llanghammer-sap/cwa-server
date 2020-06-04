@@ -395,6 +395,7 @@ public class DistributionServiceConfig {
     private Integer port;
     private String bucket;
     private Boolean setPublicReadAclOnPutObject;
+    private int maxNumberOfFailedOperations;
 
     public String getAccessKey() {
       return accessKey;
@@ -442,6 +443,14 @@ public class DistributionServiceConfig {
 
     public void setSetPublicReadAclOnPutObject(Boolean setPublicReadAclOnPutObject) {
       this.setPublicReadAclOnPutObject = setPublicReadAclOnPutObject;
+    }
+
+    public int getMaxNumberOfFailedOperations() {
+      return maxNumberOfFailedOperations;
+    }
+
+    public void setMaxNumberOfFailedOperations(int maxNumberOfFailedOperations) {
+      this.maxNumberOfFailedOperations = maxNumberOfFailedOperations;
     }
   }
 }
