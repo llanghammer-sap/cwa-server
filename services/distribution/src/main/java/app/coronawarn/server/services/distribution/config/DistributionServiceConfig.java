@@ -1,3 +1,23 @@
+/*-
+ * ---license-start
+ * Corona-Warn-App
+ * ---
+ * Copyright (C) 2020 SAP SE and all other contributors
+ * ---
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * ---license-end
+ */
+
 package app.coronawarn.server.services.distribution.config;
 
 import app.coronawarn.server.common.protocols.external.exposurenotification.SignatureInfo;
@@ -11,6 +31,8 @@ public class DistributionServiceConfig {
   private Paths paths;
   private TestData testData;
   private Integer retentionDays;
+  private Integer expiryPolicyMinutes;
+  private Integer shiftingPolicyThreshold;
   private String outputFileName;
   private Boolean includeIncompleteDays;
   private Boolean includeIncompleteHours;
@@ -41,6 +63,22 @@ public class DistributionServiceConfig {
 
   public void setRetentionDays(Integer retentionDays) {
     this.retentionDays = retentionDays;
+  }
+
+  public Integer getExpiryPolicyMinutes() {
+    return expiryPolicyMinutes;
+  }
+
+  public void setExpiryPolicyMinutes(Integer expiryPolicyMinutes) {
+    this.expiryPolicyMinutes = expiryPolicyMinutes;
+  }
+
+  public Integer getShiftingPolicyThreshold() {
+    return shiftingPolicyThreshold;
+  }
+
+  public void setShiftingPolicyThreshold(Integer shiftingPolicyThreshold) {
+    this.shiftingPolicyThreshold = shiftingPolicyThreshold;
   }
 
   public String getOutputFileName() {
@@ -263,6 +301,7 @@ public class DistributionServiceConfig {
   public static class Signature {
 
     private String appBundleId;
+    private String androidPackage;
     private String verificationKeyId;
     private String verificationKeyVersion;
     private String algorithmOid;
@@ -276,6 +315,14 @@ public class DistributionServiceConfig {
 
     public void setAppBundleId(String appBundleId) {
       this.appBundleId = appBundleId;
+    }
+
+    public String getAndroidPackage() {
+      return androidPackage;
+    }
+
+    public void setAndroidPackage(String androidPackage) {
+      this.androidPackage = androidPackage;
     }
 
     public String getVerificationKeyId() {
@@ -327,11 +374,12 @@ public class DistributionServiceConfig {
     }
 
     /**
-     * Returns the static {@link SignatureInfo} configured in the application properties. TODO Enter correct values.
+     * Returns the static {@link SignatureInfo} configured in the application properties.
      */
     public SignatureInfo getSignatureInfo() {
       return SignatureInfo.newBuilder()
           .setAppBundleId(this.getAppBundleId())
+          .setAndroidPackage(this.getAndroidPackage())
           .setVerificationKeyVersion(this.getVerificationKeyVersion())
           .setVerificationKeyId(this.getVerificationKeyId())
           .setSignatureAlgorithm(this.getAlgorithmOid())

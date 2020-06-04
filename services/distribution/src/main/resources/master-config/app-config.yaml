@@ -9,5 +9,7 @@
 # Change this file with caution!
 
 min-risk-score: 90
+attenuation-duration: !include attenuation-duration.yaml
 risk-score-classes: !include risk-score-classification.yaml
 exposure-config: !include exposure-config.yaml
+app-version: !include app-version-config.yaml

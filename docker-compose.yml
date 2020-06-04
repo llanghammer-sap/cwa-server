@@ -6,6 +6,7 @@ services:
       dockerfile: ./services/submission/Dockerfile
     depends_on:
       - postgres
+      - verification-fake
     ports:
       - "8000:8080"
       - "8006:8081"
@@ -14,8 +15,11 @@ services:
       POSTGRESQL_SERVICE_PORT: '5432'
       POSTGRESQL_SERVICE_HOST: postgres
       POSTGRESQL_DATABASE: ${POSTGRES_DB}
-      POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRESQL_USER: ${POSTGRES_USER}
+      POSTGRESQL_PASSWORD_SUBMISION: ${POSTGRES_PASSWORD}
+      POSTGRESQL_USER_SUBMISION: ${POSTGRES_USER}
+      POSTGRESQL_PASSWORD_FLYWAY: ${POSTGRES_PASSWORD}
+      POSTGRESQL_USER_FLYWAY: ${POSTGRES_USER}
+      VERIFICATION_BASE_URL: http://verification-fake:8004
   distribution:
     build:
       context: ./
@@ -25,12 +29,14 @@ services:
      - objectstore
      - create-bucket
     environment:
-      SPRING_PROFILES_ACTIVE: dev,testdata
+      SPRING_PROFILES_ACTIVE: dev,signature-dev,testdata
       POSTGRESQL_SERVICE_PORT: '5432'
       POSTGRESQL_SERVICE_HOST: postgres
       POSTGRESQL_DATABASE: ${POSTGRES_DB}
-      POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRESQL_USER: ${POSTGRES_USER}
+      POSTGRESQL_PASSWORD_DISTRIBUTION: ${POSTGRES_PASSWORD}
+      POSTGRESQL_USER_DISTRIBUTION: ${POSTGRES_USER}
+      POSTGRESQL_PASSWORD_FLYWAY: ${POSTGRES_PASSWORD}
+      POSTGRESQL_USER_FLYWAY: ${POSTGRES_USER}
       # Settings for the S3 compatible objectstore
       CWA_OBJECTSTORE_ACCESSKEY: ${OBJECTSTORE_ACCESSKEY}
       CWA_OBJECTSTORE_SECRETKEY: ${OBJECTSTORE_SECRETKEY}
@@ -83,14 +89,14 @@ services:
     environment:
       - AWS_ACCESS_KEY_ID=${OBJECTSTORE_ACCESSKEY}
       - AWS_SECRET_ACCESS_KEY=${OBJECTSTORE_SECRETKEY}
-    #entrypoint: ["/root/scripts/wait-for-it/wait-for-it.sh", "objectstore:8000", "-t", "30", "--"]
+    entrypoint: ["/root/scripts/wait-for-it/wait-for-it.sh", "objectstore:8000", "-t", "30", "--"]
     volumes:
       - ./scripts/wait-for-it:/root/scripts/wait-for-it
-    command: s3api create-bucket --bucket cwa --endpoint-url http://objectstore:8000 --acl public-read
+    command: aws s3api create-bucket --bucket cwa --endpoint-url http://objectstore:8000 --acl public-read
     depends_on:
       - objectstore
   verification-fake:
-    image: lilienthal/cwa-verification-fake:latest
+    image: lilienthal/cwa-verification-fake:0.0.3
     restart: always
     ports:
       - "8004:8004"
