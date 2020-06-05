@@ -7,7 +7,7 @@ spring:
     user: ${POSTGRESQL_USER_FLYWAY}
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${POSTGRESQL_SERVICE_HOST}:${POSTGRESQL_SERVICE_PORT}/${POSTGRESQL_DATABASE}
+    url: jdbc:postgresql://${POSTGRESQL_SERVICE_HOST}:${POSTGRESQL_SERVICE_PORT}/${POSTGRESQL_DATABASE}${POSTGRES_SSL:sslmode=?verify-full&sslrootcert=/vault/secrets/postgres_cert}
     username: ${POSTGRESQL_USER_SUBMISSION}
     password: ${POSTGRESQL_PASSWORD_SUBMISSION}
 
